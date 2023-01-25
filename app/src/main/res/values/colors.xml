@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--TODO (Step 3: Change the theme colors as per the requirement and whatever the designer have given you in the design.)-->
+    <!--START-->
+    <color name="colorPrimary">#0C90F1</color>
+    <color name="colorPrimaryDark">#0591F8</color>
+    <color name="colorAccent">#0C90F1</color>
+    <!--END-->
+
+    <!--TODO (Step 7: Add the color values here.)-->
+    <!--START-->
+    <color name="primary_text_color">#363A43</color>
+    <color name="secondary_text_color">#7A8089</color>
+    <!--END-->
+</resources>
