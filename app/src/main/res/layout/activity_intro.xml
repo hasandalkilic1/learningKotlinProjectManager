@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO (Step 4: Design the intro screen layout as per our requirement.)-->
-<!--START-->
-<!--The values for the drawable items, dimen, string and color values are added in their respective folders and files.-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -48,7 +46,6 @@
         android:textColor="@color/secondary_text_color"
         android:textSize="@dimen/intro_text_size" />
 
-    <!--TODO (Step 8: Button background files are added in the drawable folder.)-->
     <Button
         android:id="@+id/btn_sign_in_intro"
         android:layout_width="match_parent"
@@ -83,4 +80,3 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/btn_text_size" />
 </LinearLayout>
-    <!--END-->
