@@ -1,7 +1,8 @@
-package eu.tutorials.projectmanager_v2
+package eu.tutorials.projectmanager_v2.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import eu.tutorials.projectmanager_v2.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

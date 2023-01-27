@@ -1,14 +1,15 @@
-package eu.tutorials.projectmanager_v2
+package eu.tutorials.projectmanager_v2.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import eu.tutorials.projectmanager_v2.R
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class SignUpActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(R.layout.activity_sign_in)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
