@@ -39,9 +39,9 @@ class SignUpActivity : BaseActivity() {
     }
 
     private fun registerUser(){
-        val name:String = et_name.text.toString().trim{it <= ' '}
-        val email:String = et_email.text.toString().trim{it <= ' '}
-        val password:String = et_password.text.toString().trim{it <= ' '}
+        val name:String = et_name_sign_up.text.toString().trim{it <= ' '}
+        val email:String = et_email_sign_up.text.toString().trim{it <= ' '}
+        val password:String = et_password_sign_up.text.toString().trim{it <= ' '}
 
         if(validateForm(name,email,password)){
             showProgressDialog(resources.getString(R.string.please_wait))
@@ -60,7 +60,7 @@ class SignUpActivity : BaseActivity() {
                 } else {
                     Toast.makeText(
                         this,
-                        task.exception!!.message,
+                       "Registration failed",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
