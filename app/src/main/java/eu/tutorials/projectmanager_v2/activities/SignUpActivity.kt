@@ -8,6 +8,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import eu.tutorials.projectmanager_v2.R
+import eu.tutorials.projectmanager_v2.firebase.FirestoreClass
+import eu.tutorials.projectmanager_v2.models.UserModel
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : BaseActivity() {
@@ -38,6 +40,19 @@ class SignUpActivity : BaseActivity() {
         }
     }
 
+    fun userRegisteredSuccess(){
+        Toast.makeText(
+            this@SignUpActivity,
+            "You have successfully registered",
+            Toast.LENGTH_LONG
+        ).show()
+        hideProgressDialog()
+
+        FirebaseAuth.getInstance().signOut()
+        finish()
+
+    }
+
     private fun registerUser(){
         val name:String = et_name_sign_up.text.toString().trim{it <= ' '}
         val email:String = et_email_sign_up.text.toString().trim{it <= ' '}
@@ -46,23 +61,14 @@ class SignUpActivity : BaseActivity() {
         if(validateForm(name,email,password)){
             showProgressDialog(resources.getString(R.string.please_wait))
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-                hideProgressDialog()
+
                 if (task.isSuccessful) {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
                     val registeredEmail = firebaseUser.email!!
-                    Toast.makeText(
-                        this,
-                        "$name you have successfully registered the e-mail address $registeredEmail",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    FirebaseAuth.getInstance().signOut()
-                    finish()
+                    val user = UserModel(firebaseUser.uid,name,registeredEmail)
+                    FirestoreClass().registerUser(this@SignUpActivity,user)
                 } else {
-                    Toast.makeText(
-                        this,
-                       "Registration failed",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
                 }
             }
         }
