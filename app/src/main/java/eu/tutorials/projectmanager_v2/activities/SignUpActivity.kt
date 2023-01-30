@@ -66,6 +66,7 @@ class SignUpActivity : BaseActivity() {
                     val firebaseUser: FirebaseUser = task.result!!.user!!
                     val registeredEmail = firebaseUser.email!!
                     val user = UserModel(firebaseUser.uid,name,registeredEmail)
+                    //If progress dialog is not hiding here, it maybe due to Cloud firestore rules.
                     FirestoreClass().registerUser(this@SignUpActivity,user)
                 } else {
                     Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()

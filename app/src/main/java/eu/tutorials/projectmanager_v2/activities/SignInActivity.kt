@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import eu.tutorials.projectmanager_v2.R
+import eu.tutorials.projectmanager_v2.models.UserModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -69,6 +70,12 @@ class SignInActivity : BaseActivity() {
                 }
         }
 
+    }
+
+    fun signInSuccess(user:UserModel){
+        hideProgressDialog()
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
     }
 
     private fun validateForm(email:String,password:String):Boolean{
