@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.WindowManager
 import eu.tutorials.projectmanager_v2.R
 import eu.tutorials.projectmanager_v2.firebase.FirestoreClass
+import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {

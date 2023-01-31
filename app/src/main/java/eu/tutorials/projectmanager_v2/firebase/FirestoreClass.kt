@@ -1,9 +1,11 @@
 package eu.tutorials.projectmanager_v2.firebase
 
+import android.app.Activity
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import eu.tutorials.projectmanager_v2.activities.MainActivity
 import eu.tutorials.projectmanager_v2.activities.SignInActivity
 import eu.tutorials.projectmanager_v2.activities.SignUpActivity
 import eu.tutorials.projectmanager_v2.models.UserModel
@@ -25,17 +27,32 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName,"Error writing document",e)
             }
     }
-     fun signInUser(activity: SignInActivity){
+     fun signInUser(activity: Activity){
          mFirestore.collection(Constants.USERS)
              .document(getCurrentUserID())
              .get()
              .addOnSuccessListener { document ->
-                 val loggedInUser=document.toObject(UserModel::class.java)
-                 if(loggedInUser!=null){
-                     activity.signInSuccess(loggedInUser)
+                 val loggedInUser=document.toObject(UserModel::class.java)!!
+
+                 when(activity){
+                     is SignInActivity->{
+                         activity.signInSuccess(loggedInUser)
+                     }
+                     is MainActivity->{
+                         activity.updateNavigationUserDetails(loggedInUser)
+                     }
                  }
+
              }.addOnFailureListener {
                  e->
+                 when(activity){
+                     is SignInActivity->{
+                         activity.hideProgressDialog()
+                     }
+                     is MainActivity->{
+                         activity.hideProgressDialog()
+                     }
+                 }
                  Log.e("signInUser","Error writing document",e)
              }
      }
