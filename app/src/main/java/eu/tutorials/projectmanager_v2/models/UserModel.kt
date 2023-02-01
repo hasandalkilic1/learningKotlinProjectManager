@@ -9,7 +9,8 @@ data class UserModel (
     val email:String="",
     val image:String="",
     val mobile:Long=0L,
-    val fcmToken:String=""
+    val fcmToken:String="",
+    val autoLogin:Int=0
     ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -18,6 +19,7 @@ data class UserModel (
         parcel.readString()!!,
         parcel.readLong(),
         parcel.readString()!!,
+        parcel.readInt()
     ) {
     }
 
@@ -28,6 +30,7 @@ data class UserModel (
         parcel.writeString(image)
         parcel.writeLong(mobile)
         parcel.writeString(fcmToken)
+        parcel.writeInt(autoLogin)
     }
 
     override fun describeContents(): Int {
