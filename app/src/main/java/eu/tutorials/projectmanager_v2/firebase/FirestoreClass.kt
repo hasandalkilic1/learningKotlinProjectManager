@@ -2,6 +2,7 @@ package eu.tutorials.projectmanager_v2.firebase
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -26,6 +27,42 @@ class FirestoreClass {
                 Log.e(activity.javaClass.simpleName,"Error writing document",e)
             }
     }
+
+
+    fun updateUserProfileData(activity: Activity,userHashMap:HashMap<String,Any>){
+        mFirestore.collection(Constants.USERS)
+            .document(getCurrentUserID())
+            .update(userHashMap)
+            .addOnSuccessListener {
+
+                when(activity){
+                    is MyProfileActivity->{
+                        Log.i(activity.javaClass.simpleName,"profile data updated successfully")
+                        activity.profileUpdateSuccess()
+                    }
+                    is SignInActivity->{
+                        activity.hideProgressDialog()
+                        Log.i(activity.javaClass.simpleName,"User auto login updated successfully")
+                    }
+                }
+
+            }
+            .addOnFailureListener {
+                e->
+                when(activity){
+                    is MyProfileActivity->{
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName,"Error while creating a board.",e)
+                    }
+                    is SignInActivity->{
+                        activity.hideProgressDialog()
+                        Log.e(activity.javaClass.simpleName,"Error while creating a board.",e)
+                    }
+                }
+            }
+
+    }
+
      fun loadUserData(activity: Activity){
          mFirestore.collection(Constants.USERS)
              .document(getCurrentUserID())
@@ -43,6 +80,10 @@ class FirestoreClass {
                      is MyProfileActivity->{
                          activity.setUserDataInUI(loggedInUser)
                      }
+                     is SplashActivity->{
+                         activity.getCurrentUserAutoLogin(loggedInUser)
+                     }
+
                  }
 
              }.addOnFailureListener {
@@ -52,6 +93,12 @@ class FirestoreClass {
                          activity.hideProgressDialog()
                      }
                      is MainActivity->{
+                         activity.hideProgressDialog()
+                     }
+                     is MyProfileActivity -> {
+                         activity.hideProgressDialog()
+                     }
+                     is SplashActivity->{
                          activity.hideProgressDialog()
                      }
                  }

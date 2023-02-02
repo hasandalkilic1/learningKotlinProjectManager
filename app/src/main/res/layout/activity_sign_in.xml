@@ -84,6 +84,16 @@
                         android:textSize="@dimen/et_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <CheckBox
+                    android:id="@+id/auto_login_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/auto_login_checkbox_marginTop"
+                    android:layout_gravity="center"
+                    android:text="@string/auto_login_checkbox_text"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/et_text_size"/>
+
 
                 <Button
                     android:id="@+id/btn_sign_in"

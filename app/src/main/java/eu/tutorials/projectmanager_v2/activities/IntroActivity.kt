@@ -13,6 +13,7 @@ class IntroActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
+
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -30,4 +31,6 @@ class IntroActivity : BaseActivity() {
             startActivity(Intent(this@IntroActivity, SignInActivity::class.java))
         }
     }
+
+
 }

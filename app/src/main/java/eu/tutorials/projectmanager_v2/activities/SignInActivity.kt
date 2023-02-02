@@ -9,7 +9,9 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import eu.tutorials.projectmanager_v2.R
+import eu.tutorials.projectmanager_v2.firebase.FirestoreClass
 import eu.tutorials.projectmanager_v2.models.UserModel
+import eu.tutorials.projectmanager_v2.utils.Constants
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -60,6 +62,7 @@ class SignInActivity : BaseActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("sign in", "signInWithEmail:success")
                         val user = auth.currentUser
+                        updateUserAutoLogin()
                         startActivity(Intent(this,MainActivity::class.java))
                     } else {
                         // If sign in fails, display a message to the user.
@@ -76,6 +79,19 @@ class SignInActivity : BaseActivity() {
         hideProgressDialog()
         startActivity(Intent(this,MainActivity::class.java))
         finish()
+    }
+
+    private fun updateUserAutoLogin(){
+        val userHashMap=HashMap<String,Any>()
+
+        if(auto_login_checkbox.isChecked ){
+            userHashMap[Constants.AUTO_LOGIN]=1
+        }
+        else{
+            userHashMap[Constants.AUTO_LOGIN]=0
+        }
+
+        FirestoreClass().updateUserProfileData(this,userHashMap)
     }
 
     private fun validateForm(email:String,password:String):Boolean{

@@ -12,7 +12,10 @@ import eu.tutorials.projectmanager_v2.models.UserModel
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
+
+    var checkedUserAutoLogin:Int=1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -29,12 +32,23 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             var currentUserID=FirestoreClass().getCurrentUserID()
             if(currentUserID.isNotEmpty()){
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                FirestoreClass().loadUserData(this)
+                if(checkedUserAutoLogin==1){
+                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                }
+                else{
+                    startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
+                }
             }else{
                 startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
             }
             finish()
         }, 2500)
     }
+
+    fun getCurrentUserAutoLogin(user: UserModel){
+        checkedUserAutoLogin=user.autoLogin
+    }
+
 
 }
