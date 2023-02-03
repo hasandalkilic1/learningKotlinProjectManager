@@ -85,10 +85,10 @@ class SignInActivity : BaseActivity() {
         val userHashMap=HashMap<String,Any>()
 
         if(auto_login_checkbox.isChecked ){
-            userHashMap[Constants.AUTO_LOGIN]=1
+            userHashMap[Constants.AUTO_LOGIN]="1"
         }
         else{
-            userHashMap[Constants.AUTO_LOGIN]=0
+            userHashMap[Constants.AUTO_LOGIN]="0"
         }
 
         FirestoreClass().updateUserProfileData(this,userHashMap)

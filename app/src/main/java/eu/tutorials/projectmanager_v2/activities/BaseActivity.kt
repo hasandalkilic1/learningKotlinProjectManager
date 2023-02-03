@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.dialog_progress.*
 
 open class BaseActivity : AppCompatActivity() {
 
+    var checkedUserAutoLogin:String=""
+
     private var doubleBackToExitPressedOnce=false
 
     private lateinit var mProgressDialog:Dialog

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import android.widget.Toast
 import eu.tutorials.projectmanager_v2.R
 import eu.tutorials.projectmanager_v2.firebase.FirestoreClass
 import eu.tutorials.projectmanager_v2.models.UserModel
@@ -14,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : BaseActivity() {
 
-    var checkedUserAutoLogin:Int=1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +29,22 @@ class SplashActivity : BaseActivity() {
             Typeface.createFromAsset(assets, "Windpower.otf")
         tv_app_name.typeface = typeface
 
+        var currentUserID=FirestoreClass().getCurrentUserID()
+
+        if(currentUserID.isNotEmpty()){
+            FirestoreClass().loadUserData(this)
+        }
+
         Handler().postDelayed({
-            var currentUserID=FirestoreClass().getCurrentUserID()
             if(currentUserID.isNotEmpty()){
-                FirestoreClass().loadUserData(this)
-                if(checkedUserAutoLogin==1){
+
+                if(checkedUserAutoLogin=="1"){
                     startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                 }
                 else{
                     startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
                 }
+
             }else{
                 startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
             }

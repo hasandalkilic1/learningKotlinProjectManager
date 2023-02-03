@@ -24,6 +24,11 @@
     <string name="mobile">Mobile</string>
     <string name="update">Update</string>
     <string name="my_profile_title">My Profile</string>
+    <string name="there_is_no_change">There is No Change</string>
+    <!--Create Board-->
+    <string name="create_board_title">Create Board</string>
+    <string name="create">CREATE</string>
+    <string name="board_name">Board Name</string>
 
 
 </resources>
