@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.toObject
 import eu.tutorials.projectmanager_v2.activities.*
+import eu.tutorials.projectmanager_v2.models.Board
 import eu.tutorials.projectmanager_v2.models.UserModel
 import eu.tutorials.projectmanager_v2.utils.Constants
 
@@ -25,6 +26,21 @@ class FirestoreClass {
             }.addOnFailureListener {
                 e->
                 Log.e(activity.javaClass.simpleName,"Error writing document",e)
+            }
+    }
+
+    fun createBoard(activity:CreateBoardActivity,boardInfo:Board){
+        mFirestore.collection(Constants.BOARDS)
+            .document()
+            .set(boardInfo, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName,"Board created successfully")
+                Toast.makeText(activity,"Board created successfully.",Toast.LENGTH_SHORT).show()
+                activity.boardCreatedSuccessfully()
+            }.addOnFailureListener {
+                e->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"Error while creating a board",e)
             }
     }
 

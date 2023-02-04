@@ -45,7 +45,7 @@
                     android:layout_width="@dimen/board_image_size"
                     android:layout_height="@dimen/board_image_size"
                     android:contentDescription="@string/image_contentDescription"
-                    android:src="@drawable/ic_board_place_holder" />
+                    android:src="@drawable/ic_board_place_holder_24dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
