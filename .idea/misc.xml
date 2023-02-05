@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/drawable/ic_board_place_holder_24dp.xml" value="0.3406537282941777" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/activity_create_board.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/activity_intro.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/activity_main.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/activity_my_profil.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/activity_my_profile.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/activity_sign_in.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/app_bar_main.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/main_content.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/layout/nav_header_main.xml" value="0.32708333333333334" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/ProjectManager_v2/app/src/main/res/menu/activity_main_drawer.xml" value="0.32708333333333334" />
-      </map>
-    </option>
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
