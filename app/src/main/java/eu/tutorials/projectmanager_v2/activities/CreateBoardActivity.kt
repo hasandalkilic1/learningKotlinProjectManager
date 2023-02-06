@@ -2,6 +2,7 @@ package eu.tutorials.projectmanager_v2.activities
 
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -109,6 +110,7 @@ class CreateBoardActivity : BaseActivity() {
 
     fun boardCreatedSuccessfully(){
         hideProgressDialog()
+        setResult(Activity.RESULT_OK)
         finish()
     }
 

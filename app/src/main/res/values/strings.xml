@@ -31,6 +31,7 @@
     <string name="board_name">Board Name</string>
     <!--Main Content-->
     <string name="no_boards_are_available">No Boards Are Available!</string>
+    <!--Activity Task List-->
 
 
 </resources>
