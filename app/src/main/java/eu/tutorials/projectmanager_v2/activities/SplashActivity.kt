@@ -32,6 +32,7 @@ class SplashActivity : BaseActivity() {
         var currentUserID=FirestoreClass().getCurrentUserID()
 
         if(currentUserID.isNotEmpty()){
+            showProgressDialog(resources.getString(R.string.please_wait))
             FirestoreClass().loadUserData(this)
         }
 
@@ -53,6 +54,7 @@ class SplashActivity : BaseActivity() {
     }
 
     fun getCurrentUserAutoLogin(user: UserModel){
+        hideProgressDialog()
         checkedUserAutoLogin=user.autoLogin
     }
 
