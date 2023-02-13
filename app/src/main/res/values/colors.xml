@@ -14,5 +14,7 @@
 
     <color name="task_list_action_color">#F7F6FA</color>
     <color name="task_list_title_view_bg_color">#F8F8F8</color>
+    <color name="member_dialog_cancel_text_color">#DE2404</color>
+    <color name="member_dialog_add_text_color">#18A502</color>
 
 </resources>

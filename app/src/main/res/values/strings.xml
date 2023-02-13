@@ -39,6 +39,10 @@
     <string name="add_list">Add List</string>
     <!--Activity Members-->
     <string name="members">Members</string>
-
-
+    <!-- Add Members-->
+    <string name="add_member">Add Member</string>
+    <string name="cancel">CANCEL</string>
+    <string name="add">ADD</string>
+    <string name="search_member">Add Member</string>
+    <string name="no_such_member_found">No such member found!</string>
 </resources>

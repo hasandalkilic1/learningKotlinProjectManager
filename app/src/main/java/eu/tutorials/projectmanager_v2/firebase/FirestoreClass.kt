@@ -204,6 +204,46 @@ class FirestoreClass {
             }
     }
 
+    fun getMemberDetails(activity: MembersActivity, email:String,noMember:String){
+        mFirestore.collection(Constants.USERS)
+            .whereEqualTo(Constants.EMAIL,email)
+            .get()
+            .addOnSuccessListener {
+                document->
+                if (document.documents.size>0){
+                    val user=document.documents[0].toObject(UserModel::class.java)!!
+                    activity.memberDetails(user)
+                }
+                else{
+                    activity.hideProgressDialog()
+                    activity.showErrorSnackBar(noMember)
+                }
+            }
+            .addOnFailureListener {
+                e->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"Error while getting user details",e)
+            }
+    }
+
+    fun assignMemberToBoard(activity: MembersActivity,board: Board,user:UserModel){
+        val assignedToHashMap=HashMap<String,Any>()
+        assignedToHashMap[Constants.ASSIGNED_TO]=board.assignedTo
+
+        mFirestore.collection(Constants.BOARDS)
+            .document(board.documentID)
+            .update(assignedToHashMap)
+            .addOnSuccessListener {
+                activity.memberAssignedSuccess(user)
+            }
+            .addOnFailureListener {
+                e->
+                activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName,"Error while creating a board",e)
+            }
+
+    }
+
     fun getCurrentUserID():String{
         var currentUser= FirebaseAuth.getInstance().currentUser
         var currentUserID=""
