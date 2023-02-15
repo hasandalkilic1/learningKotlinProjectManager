@@ -1,8 +1,10 @@
 package eu.tutorials.projectmanager_v2.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,19 +21,38 @@ import kotlinx.android.synthetic.main.activity_task_list.*
 class TaskListActivity : BaseActivity() {
 
     private lateinit var mBoardDetails:Board
+    private lateinit var mBoardDocumentID:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_list)
 
-        var boardDocumentID=""
+
         if(intent.hasExtra(Constants.DOCUMENT_ID)){
-            boardDocumentID=intent.getStringExtra(Constants.DOCUMENT_ID)!!
+            mBoardDocumentID=intent.getStringExtra(Constants.DOCUMENT_ID)!!
         }
 
         showProgressDialog(resources.getString(R.string.please_wait))
-        FirestoreClass().getBoardDetails(this,boardDocumentID)
+        FirestoreClass().getBoardDetails(this,mBoardDocumentID)
 
+    }
+
+    //This code for updating tasks as long as the activity continues but it cause to more request in database
+    /*override fun onResume() {
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().getBoardDetails(this,mBoardDocumentID)
+        super.onResume()
+    }*/
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode==Activity.RESULT_OK && requestCode== MEMBER_REQUEST_CODE){
+            showProgressDialog(resources.getString(R.string.please_wait))
+            FirestoreClass().getBoardDetails(this,mBoardDocumentID)
+        }
+        else{
+            Log.e("Cancelled","Cancelled")
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,10 +65,19 @@ class TaskListActivity : BaseActivity() {
             R.id.action_members->{
                 val intent=Intent(this,MembersActivity::class.java)
                 intent.putExtra(Constants.BOARD_DETAIL,mBoardDetails)
-                startActivity(intent)
+                startActivityForResult(intent, MEMBER_REQUEST_CODE)
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun cardDetails(taskListPosition:Int,cardPosition:Int){
+        val intent=Intent(this,CardDetailsActivity::class.java)
+        intent.putExtra(Constants.BOARD_DETAIL,mBoardDetails)
+        intent.putExtra(Constants.TASK_LIST_ITEM_POSITION,taskListPosition)
+        intent.putExtra(Constants.CARD_LIST_ITEM_POSITION,cardPosition)
+        startActivity(intent)
     }
 
     fun boardDetails(board: Board){
@@ -136,5 +166,9 @@ class TaskListActivity : BaseActivity() {
         }
 
         toolbar_task_list_activity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    companion object{
+        const val MEMBER_REQUEST_CODE:Int=13
     }
 }
