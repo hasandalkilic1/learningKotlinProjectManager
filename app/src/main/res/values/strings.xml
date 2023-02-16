@@ -51,4 +51,10 @@
     <string name="select_members">Select Members</string>
     <string name="due_date">Due Date</string>
     <string name="select_due_date">Select Due Date</string>
+    <string name="delete_card">Delete Card</string>
+    <string name="please_enter_a_card_name">Please Enter a Card Name</string>
+    <string name="alert">Alert</string>
+    <string name="confirmation_message_to_delete_card">Are you sure you want to delete card \'%1$s\?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
