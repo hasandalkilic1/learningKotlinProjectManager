@@ -58,6 +58,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="str_select_label_color">Select Label Color</string>
+    <string name="str_select_member">Select Member</string>
     <!--Colors List-->
     <string name="color_list_lime_green">#43C86F</string>
     <string name="color_list_blue">#0C90F1</string>

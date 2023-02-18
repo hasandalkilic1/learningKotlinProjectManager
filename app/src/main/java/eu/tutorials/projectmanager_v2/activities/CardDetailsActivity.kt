@@ -10,10 +10,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import eu.tutorials.projectmanager_v2.R
 import eu.tutorials.projectmanager_v2.dialogs.LabelColorListDialog
+import eu.tutorials.projectmanager_v2.dialogs.MembersListDialog
 import eu.tutorials.projectmanager_v2.firebase.FirestoreClass
 import eu.tutorials.projectmanager_v2.models.Board
 import eu.tutorials.projectmanager_v2.models.Card
 import eu.tutorials.projectmanager_v2.models.Task
+import eu.tutorials.projectmanager_v2.models.UserModel
 import eu.tutorials.projectmanager_v2.utils.Constants
 import kotlinx.android.synthetic.main.activity_card_details.*
 import kotlinx.android.synthetic.main.activity_members.*
@@ -24,6 +26,7 @@ class CardDetailsActivity : BaseActivity() {
     private var mTaskListPosition=-1
     private var mCardPosition=-1
     private var mSelectedColor=""
+    private lateinit var mMembersDetailList:ArrayList<UserModel>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,11 @@ class CardDetailsActivity : BaseActivity() {
         et_name_card_details.setText(mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].name)
         et_name_card_details.setSelection(et_name_card_details.text.toString().length)
 
+        mSelectedColor=mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].labelColor
+        if(mSelectedColor.isNotEmpty()){
+            setColor()
+        }
+
         btn_update_card_details.setOnClickListener {
             if (et_name_card_details.text.toString().isNotEmpty()){
                 updateCardDetails()
@@ -48,6 +56,10 @@ class CardDetailsActivity : BaseActivity() {
 
         tv_select_label_color.setOnClickListener {
             labelColorsListDialog()
+        }
+
+        tv_select_members.setOnClickListener {
+            membersListDialog()
         }
     }
 
@@ -61,6 +73,40 @@ class CardDetailsActivity : BaseActivity() {
         if(intent.hasExtra(Constants.CARD_LIST_ITEM_POSITION)){
             mCardPosition=intent.getIntExtra(Constants.CARD_LIST_ITEM_POSITION,-1)
         }
+        if (intent.hasExtra(Constants.BOARD_MEMBERS_LIST)){
+            mMembersDetailList=intent.getParcelableArrayListExtra<UserModel>(Constants.BOARD_MEMBERS_LIST)!!
+        }
+    }
+
+    private fun membersListDialog(){
+        var cardAssignedMembersList=mBoardDetails.taskList[mTaskListPosition].cards[mCardPosition].assignedTo
+
+        if(cardAssignedMembersList.size > 0){
+            for (i in mMembersDetailList.indices){
+                for(j in cardAssignedMembersList){
+                    if(mMembersDetailList[i].id==j){
+                        mMembersDetailList[i].selected=true
+                    }
+                }
+            }
+        }
+        else{
+            for (i in mMembersDetailList.indices){
+                mMembersDetailList[i].selected=false
+            }
+        }
+
+        val listDialog = object : MembersListDialog(
+            this,
+            mMembersDetailList,
+            resources.getString(R.string.str_select_member)
+        ){
+            override fun onItemSelected(user: UserModel, action: String) {
+                //TODO implement select member functionality
+            }
+        }
+
+        listDialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -111,7 +157,8 @@ class CardDetailsActivity : BaseActivity() {
         val listDialog= object: LabelColorListDialog(
             this,
             colorsList,
-            resources.getString(R.string.str_select_label_color)
+            resources.getString(R.string.str_select_label_color),
+            mSelectedColor
         ){
             override fun onItemSelected(color: String) {
                 mSelectedColor=color

@@ -14,6 +14,7 @@ import eu.tutorials.projectmanager_v2.firebase.FirestoreClass
 import eu.tutorials.projectmanager_v2.models.Board
 import eu.tutorials.projectmanager_v2.models.Card
 import eu.tutorials.projectmanager_v2.models.Task
+import eu.tutorials.projectmanager_v2.models.UserModel
 import eu.tutorials.projectmanager_v2.utils.Constants
 import kotlinx.android.synthetic.main.activity_create_board.*
 import kotlinx.android.synthetic.main.activity_task_list.*
@@ -22,6 +23,7 @@ class TaskListActivity : BaseActivity() {
 
     private lateinit var mBoardDetails:Board
     private lateinit var mBoardDocumentID:String
+    private lateinit var mAssignedMemberDetailList:ArrayList<UserModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,12 @@ class TaskListActivity : BaseActivity() {
         showProgressDialog(resources.getString(R.string.please_wait))
         FirestoreClass().getBoardDetails(this,mBoardDocumentID)
 
+    }
+
+    fun boardMembersDetailsList(list: ArrayList<UserModel>){
+        mAssignedMemberDetailList=list
+
+        hideProgressDialog()
     }
 
     //This code for updating tasks as long as the activity continues but it cause to more request in database
@@ -79,6 +87,7 @@ class TaskListActivity : BaseActivity() {
         intent.putExtra(Constants.BOARD_DETAIL,mBoardDetails)
         intent.putExtra(Constants.TASK_LIST_ITEM_POSITION,taskListPosition)
         intent.putExtra(Constants.CARD_LIST_ITEM_POSITION,cardPosition)
+        intent.putExtra(Constants.BOARD_MEMBERS_LIST,mAssignedMemberDetailList)
         startActivityForResult(intent, CARD_DETAILS_REQUEST_CODE)
     }
 
@@ -96,6 +105,9 @@ class TaskListActivity : BaseActivity() {
 
         val adapter=TaskListItemsAdapter(this,board.taskList)
         rv_task_list.adapter=adapter
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().getAssignedMembersListDetails(this,mBoardDetails.assignedTo)
     }
 
     fun addUpdateTaskListSuccess(){

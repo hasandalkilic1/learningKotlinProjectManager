@@ -3,6 +3,7 @@ package eu.tutorials.projectmanager_v2.models
 import android.os.Parcel
 import android.os.Parcelable
 
+
 data class UserModel (
     val id:String="",
     val name:String="",
@@ -10,8 +11,10 @@ data class UserModel (
     val image:String="",
     val mobile:Long=0L,
     val fcmToken:String="",
-    val autoLogin:String=""
+    val autoLogin:String="",
+    var selected:Boolean=false
     ):Parcelable {
+
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
