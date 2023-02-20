@@ -70,6 +70,7 @@ class SignUpActivity : BaseActivity() {
                     FirestoreClass().registerUser(this@SignUpActivity,user)
                 } else {
                     Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show()
+                    hideProgressDialog()
                 }
             }
         }
