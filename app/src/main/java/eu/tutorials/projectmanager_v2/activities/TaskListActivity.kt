@@ -168,6 +168,15 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().addUpdateTaskList(this,mBoardDetails)
     }
 
+    fun updateCardsInTaskList(taskListPosition: Int,cards:ArrayList<Card>){
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size-1)
+
+        mBoardDetails.taskList[taskListPosition].cards=cards
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity,mBoardDetails)
+    }
+
     private fun setupActionBar() {
 
         setSupportActionBar(toolbar_task_list_activity)

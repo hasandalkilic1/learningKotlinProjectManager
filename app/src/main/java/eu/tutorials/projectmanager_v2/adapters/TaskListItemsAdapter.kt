@@ -11,17 +11,25 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.view.setMargins
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import eu.tutorials.projectmanager_v2.R
 import eu.tutorials.projectmanager_v2.activities.TaskListActivity
 import eu.tutorials.projectmanager_v2.models.Task
 import kotlinx.android.synthetic.main.item_task.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 open class TaskListItemsAdapter(
     private val context:Context,
     private var list:ArrayList<Task>)
     :RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var mPositionDraggedFrom=-1
+    private var mPositionDraggedTo=-1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view=LayoutInflater.from(context).inflate(R.layout.item_task,parent,false)
         val layoutParams= LinearLayout.LayoutParams(
@@ -133,6 +141,54 @@ open class TaskListItemsAdapter(
                     }
                 }
             })
+
+            val dividerItemDecoration=DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
+
+            holder.itemView.rv_card_list.addItemDecoration(dividerItemDecoration)
+
+            val helper = ItemTouchHelper(
+                object : ItemTouchHelper.SimpleCallback(
+                    ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+                    0
+                )
+                {
+                    override fun onMove(
+                        recyclerView: RecyclerView,
+                        dragged: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder
+                    ): Boolean {
+                        val draggedPosition=dragged.adapterPosition
+                        val targetPosition=target.adapterPosition
+
+                        if(mPositionDraggedFrom==-1){
+                            mPositionDraggedFrom=draggedPosition
+                        }
+                        mPositionDraggedTo=targetPosition
+                        Collections.swap(list[position].cards,draggedPosition,targetPosition)
+                        adapter.notifyItemMoved(draggedPosition,targetPosition)
+                        return false
+                    }
+
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    }
+
+                    override fun clearView(
+                        recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder
+                    ) {
+                        super.clearView(recyclerView, viewHolder)
+
+                        if(mPositionDraggedFrom != -1 && mPositionDraggedTo != -1 && mPositionDraggedFrom != mPositionDraggedTo){
+                            (context as TaskListActivity).updateCardsInTaskList(position,list[position].cards)
+                        }
+                        mPositionDraggedFrom=-1
+                        mPositionDraggedTo=-1
+                    }
+
+                }
+            )
+
+            helper.attachToRecyclerView(holder.itemView.rv_card_list)
 
         }
     }
