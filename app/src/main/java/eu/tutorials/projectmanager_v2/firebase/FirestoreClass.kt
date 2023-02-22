@@ -81,6 +81,10 @@ class FirestoreClass {
                         activity.hideProgressDialog()
                         Log.i(activity.javaClass.simpleName,"User auto login updated successfully")
                     }
+                    is MainActivity->{
+                        activity.tokenUpdateSuccess()
+                        Log.i(activity.javaClass.simpleName,"Token updated successfully")
+                    }
                 }
 
             }
@@ -89,13 +93,15 @@ class FirestoreClass {
                 when(activity){
                     is MyProfileActivity->{
                         activity.hideProgressDialog()
-                        Log.e(activity.javaClass.simpleName,"Error while creating a board.",e)
                     }
                     is SignInActivity->{
                         activity.hideProgressDialog()
-                        Log.e(activity.javaClass.simpleName,"Error while creating a board.",e)
+                    }
+                    is MainActivity->{
+                        activity.hideProgressDialog()
                     }
                 }
+                Log.e(activity.javaClass.simpleName,"Error while updating users.",e)
             }
 
     }

@@ -36,6 +36,10 @@ object Constants {
     const val SELECT:String="Select"
     const val UN_SELECT:String="UnSelect"
 
+    const val PROJECTMANAGER_PREFERENCES="ProjectManager_preferences"
+    const val FCM_TOKEN_UPDATED="fcmTokenUpdated"
+    const val FCM_TOKEN="fcmToken"
+
 
     fun showImageChooser(activity: Activity){
         val galleryIntent= Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
